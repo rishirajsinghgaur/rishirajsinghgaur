@@ -11,7 +11,7 @@
 
 ## about me
 
-I'm a PhD scholar at **Manipal University Jaipur**, researching data deduplication for Industrial IoT — where machine learning, blockchain audit trails, and federated learning meet. I also work as a trainer at **MUJ TEC**, designing digital-skills programmes for staff.
+I am currently pursuing my Ph.D. at Manipal University Jaipur while working as a Senior Process Associate in the Office of the Controller of Examinations, where I contribute to academic process automation and large-scale data workflows.
 
 - 🔭 Currently working on IIoT deduplication frameworks evaluated on TEP, SKAB, and SWaT benchmarks
 - 🧠 Interests: anomaly-preserving deduplication, privacy-preserving federated learning, blockchain-based audit trails
