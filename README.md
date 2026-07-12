@@ -38,17 +38,17 @@ GitHub strips `<script>` tags from profile READMEs, so it can't run inline here 
 
 **[→ open the interactive version](https://rishirajsinghgaur.github.io/rishirajsinghgaur/)**
 
+<!-- once you've recorded a short screen capture of the demo, drop it in as preview.gif and uncomment the line below
 <div align="center">
 <img src="https://raw.githubusercontent.com/rishirajsinghgaur/rishirajsinghgaur/main/preview.gif" width="600" alt="interactive demo preview" />
 </div>
-
-*(swap `preview.gif` for a short screen recording of the demo once it's hosted — see setup below)*
+-->
 
 ## github stats
 
 <div align="center">
 <img src="https://github-readme-stats.vercel.app/api?username=rishirajsinghgaur&show_icons=true&theme=transparent&title_color=2FD9A8&icon_color=2FD9A8&text_color=8A97A3&hide_border=true" height="165"/>
-<img src="https://github-readme-streak-stats.herokuapp.com/?user=rishirajsinghgaur&theme=transparent&hide_border=true&ring=2FD9A8&fire=F0B429&currStreakLabel=2FD9A8" height="165"/>
+<img src="https://streak-stats.demolab.com/?user=rishirajsinghgaur&theme=transparent&hide_border=true&ring=2FD9A8&fire=F0B429&currStreakLabel=2FD9A8" height="165"/>
 </div>
 
 <div align="center">
