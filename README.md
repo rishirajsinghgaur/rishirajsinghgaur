@@ -30,18 +30,7 @@ I am currently pursuing my Ph.D. at Manipal University Jaipur while working as a
 <img src="https://img.shields.io/badge/Streamlit-0B0F14?style=for-the-badge&logo=streamlit&logoColor=2FD9A8" />
 </div>
 
-## interactive corner
 
-I built a small physics playground that doubles as a demo of my thesis:
-
-- 🫙 **Stream packets** — research "packets" (`py`, `php`, `phd`, `ml`, `iiot`, `fl`, `chain`, `data`) drop into a storage jar
-- 🔍 **Click any packet** to inspect it — each one opens a card about that part of my work
-- ♻️ **Deduplicate!** Duplicate packets exist on purpose — drag a copy onto its twin and they merge, with a live "storage saved" counter (yes, my PhD as a mini-game)
-- ⇅ shake, ☾ flip gravity, ⟲ reset — because physics
-
-GitHub strips `<script>` tags from profile READMEs, so it can't run inline here — but it's live on GitHub Pages:
-
-**[→ open the interactive version](https://rishirajsinghgaur.github.io/rishirajsinghgaur/)**
 
 <!-- once you've recorded a short screen capture of the demo, drop it in as preview.gif and uncomment the line below
 <div align="center">
