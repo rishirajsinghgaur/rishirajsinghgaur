@@ -3,17 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rishiraj Singh Gaur</title>
+<title>Rishiraj Singh Gaur — Research Scholar</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap');
 
   :root{
     --bg: #0B0F14;
     --panel: #10161D;
+    --panel-2: #131B24;
     --line: #1E2731;
     --teal: #2FD9A8;
     --teal-dim: #14493A;
     --amber: #F0B429;
+    --rose: #E0637C;
+    --blue: #4FB6E8;
+    --violet: #7C7FE0;
     --text: #E7ECEF;
     --text-dim: #8A97A3;
   }
@@ -22,64 +26,11 @@
     margin:0; padding:0; background: var(--bg); color: var(--text);
     font-family: 'Inter', sans-serif; overflow-x: hidden;
   }
-  #stage{
-    position: relative;
-    width: 100%;
-    height: 460px;
-    background:
-      linear-gradient(var(--line) 1px, transparent 1px) 0 0/40px 40px,
-      linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0/40px 40px,
-      var(--bg);
-    border-bottom: 1px solid var(--line);
-    overflow: hidden;
-    cursor: pointer;
-  }
-  #hint{
-    position:absolute; top:16px; left:50%; transform: translateX(-50%);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px; color: var(--text-dim);
-    letter-spacing: 0.03em;
-    z-index: 5;
-    pointer-events:none;
-    transition: opacity 0.6s ease;
-  }
-  #jar{
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 280px;
-    height: 210px;
-    border-left: 3px solid var(--teal);
-    border-right: 3px solid var(--teal);
-    border-bottom: 3px solid var(--teal);
-    border-radius: 0 0 14px 14px;
-    z-index: 2;
-  }
-  #jarLabel{
-    position:absolute;
-    bottom: 216px;
-    left:50%; transform: translateX(-50%);
-    font-family:'JetBrains Mono', monospace;
-    font-size: 11px;
-    color: var(--teal);
-    letter-spacing: 0.08em;
-    z-index: 2;
-  }
-  .ball{
-    position:absolute;
-    display:flex; align-items:center; justify-content:center;
-    border-radius: 50%;
-    font-family:'JetBrains Mono', monospace;
-    font-weight: 500;
-    font-size: 11px;
-    color: var(--bg);
-    box-shadow: none;
-    user-select:none;
-  }
+  ::selection{ background: var(--teal-dim); color: var(--text); }
+
   header.hero{
-    padding: 28px 24px 8px;
-    max-width: 760px;
+    padding: 30px 24px 10px;
+    max-width: 780px;
     margin: 0 auto;
   }
   .eyebrow{
@@ -88,27 +39,123 @@
     color: var(--teal);
     letter-spacing: 0.12em;
     margin: 0 0 8px;
+    min-height: 16px;
   }
+  .eyebrow .cursor{
+    display:inline-block; width:7px; height:13px;
+    background: var(--teal); vertical-align: -2px;
+    animation: blink 1s steps(1) infinite;
+  }
+  @keyframes blink{ 50%{ opacity:0; } }
   h1{
-    font-size: 30px;
-    font-weight: 600;
+    font-size: 30px; font-weight: 600;
+    margin: 0 0 6px; letter-spacing: -0.01em;
+  }
+  .role{ color: var(--text-dim); font-size: 15px; margin: 0 0 4px; }
+
+  /* ---------- physics stage ---------- */
+  #stageWrap{ position: relative; margin-top: 14px; }
+  #stage{
+    position: relative;
+    width: 100%;
+    height: 480px;
+    background:
+      linear-gradient(var(--line) 1px, transparent 1px) 0 0/40px 40px,
+      linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0/40px 40px,
+      var(--bg);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    overflow: hidden;
+    cursor: pointer;
+  }
+  #hint{
+    position:absolute; top:14px; left:50%; transform: translateX(-50%);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; color: var(--text-dim);
+    letter-spacing: 0.03em; text-align:center;
+    z-index: 5; pointer-events:none;
+    transition: opacity 0.6s ease;
+    padding: 0 16px;
+  }
+  #hud{
+    position:absolute; top:12px; right:14px;
+    font-family:'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--text-dim);
+    text-align: right; line-height: 1.7;
+    z-index: 5; pointer-events: none;
+  }
+  #hud b{ color: var(--teal); font-weight: 500; }
+  #hud .saved{ color: var(--amber); }
+  #jar{
+    position: absolute; bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 280px; height: 210px;
+    border-left: 3px solid var(--teal);
+    border-right: 3px solid var(--teal);
+    border-bottom: 3px solid var(--teal);
+    border-radius: 0 0 14px 14px;
+    z-index: 2; pointer-events: none;
+  }
+  #jarLabel{
+    position:absolute; bottom: 216px; left:50%;
+    transform: translateX(-50%);
+    font-family:'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--teal);
+    letter-spacing: 0.08em; z-index: 2; pointer-events:none;
+  }
+  #controls{
+    display:flex; gap:8px; justify-content:center; flex-wrap:wrap;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--line);
+    background: var(--panel);
+  }
+  #controls button{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    padding: 8px 14px;
+    background: transparent;
+    color: var(--teal);
+    border: 1px solid var(--teal-dim);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background .15s ease, color .15s ease;
+  }
+  #controls button:hover{ background: var(--teal-dim); }
+  #controls button:focus-visible{ outline: 2px solid var(--teal); outline-offset: 2px; }
+  #controls button.primary{ background: var(--teal); color: var(--bg); border-color: var(--teal); font-weight:500; }
+  #controls button.primary:hover{ filter: brightness(1.1); }
+
+  /* packet inspector */
+  #inspector{
+    max-width: 780px; margin: 18px auto 0; padding: 0 24px;
+  }
+  #inspectorCard{
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--teal);
+    border-radius: 10px;
+    padding: 16px 20px;
+    min-height: 86px;
+    transition: border-left-color .3s ease;
+  }
+  #inspectorCard .ptitle{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 12px; letter-spacing: .08em;
+    color: var(--teal); text-transform: uppercase;
     margin: 0 0 6px;
-    letter-spacing: -0.01em;
   }
-  .role{
-    color: var(--text-dim);
-    font-size: 15px;
-    margin: 0;
+  #inspectorCard p{ margin:0; font-size:14.5px; line-height:1.65; color: var(--text); }
+  #inspectorCard p.dim{ color: var(--text-dim); }
+
+  /* ---------- content ---------- */
+  section{ max-width: 780px; margin: 34px auto 0; padding: 0 24px; }
+  section > h2{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 13px; text-transform: lowercase;
+    letter-spacing: 0.08em; color: var(--teal);
+    font-weight: 500; margin: 0 0 14px;
   }
-  #about{
-    max-width: 760px;
-    margin: 18px auto 40px;
-    padding: 0 24px;
-    opacity: 0;
-    transform: translateY(10px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-  #about.show{ opacity:1; transform: translateY(0); }
+  section > h2::before{ content:"// "; color: var(--text-dim); }
   .card{
     background: var(--panel);
     border: 1px solid var(--line);
@@ -116,51 +163,81 @@
     padding: 20px 22px;
     margin-bottom: 14px;
   }
-  .card h2{
-    font-size: 13px;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--teal);
-    margin: 0 0 10px;
-    font-weight: 500;
-  }
-  .card p{
-    font-size: 14.5px;
-    line-height: 1.7;
-    color: var(--text);
-    margin: 0;
-  }
+  .card p{ font-size: 14.5px; line-height: 1.7; color: var(--text); margin: 0; }
   .card p + p{ margin-top: 10px; }
   .tags{ display:flex; flex-wrap:wrap; gap:8px; margin-top: 12px; }
   .tag{
     font-family:'JetBrains Mono', monospace;
-    font-size: 11.5px;
-    padding: 5px 10px;
-    border: 1px solid var(--line);
-    border-radius: 999px;
+    font-size: 11.5px; padding: 5px 10px;
+    border: 1px solid var(--line); border-radius: 999px;
     color: var(--text-dim);
   }
-  .links{ display:flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
+
+  /* pipeline */
+  #pipeline{ display:flex; gap:6px; flex-wrap:wrap; margin-bottom: 12px; }
+  .stagebtn{
+    flex:1 1 120px;
+    font-family:'JetBrains Mono', monospace;
+    font-size: 12px;
+    padding: 12px 8px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    color: var(--text-dim);
+    cursor: pointer;
+    text-align:center;
+    transition: all .15s ease;
+    position: relative;
+  }
+  .stagebtn::after{
+    content:"→";
+    position:absolute; right:-11px; top:50%; transform:translateY(-50%);
+    color: var(--line); z-index:1;
+  }
+  .stagebtn:last-child::after{ content:""; }
+  .stagebtn:hover{ border-color: var(--teal-dim); color: var(--text); }
+  .stagebtn:focus-visible{ outline: 2px solid var(--teal); outline-offset: 2px; }
+  .stagebtn.active{ border-color: var(--teal); color: var(--teal); background: var(--panel-2); }
+  #stageDesc{
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 16px 20px;
+    font-size: 14.5px; line-height: 1.65;
+    color: var(--text);
+    min-height: 72px;
+  }
+  #stageDesc .sd-label{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing:.08em; text-transform: uppercase;
+    color: var(--amber); margin: 0 0 6px;
+  }
+  #stageDesc p{ margin:0; }
+
+  /* reveal on scroll */
+  .reveal{ opacity:0; transform: translateY(12px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.show{ opacity:1; transform:none; }
+  @media (prefers-reduced-motion: reduce){
+    .reveal{ opacity:1; transform:none; transition:none; }
+    .eyebrow .cursor{ animation:none; }
+  }
+
+  .links{ display:flex; gap: 10px; margin: 22px 0 0; flex-wrap: wrap; }
   .links a{
     font-family:'JetBrains Mono', monospace;
-    font-size: 13px;
-    color: var(--bg);
-    background: var(--teal);
-    text-decoration: none;
-    padding: 9px 16px;
-    border-radius: 6px;
-    font-weight: 500;
+    font-size: 13px; color: var(--bg);
+    background: var(--teal); text-decoration: none;
+    padding: 9px 16px; border-radius: 6px; font-weight: 500;
   }
   .links a.secondary{
-    background: transparent;
-    color: var(--teal);
+    background: transparent; color: var(--teal);
     border: 1px solid var(--teal-dim);
   }
+  .links a:focus-visible{ outline:2px solid var(--teal); outline-offset:2px; }
+
   footer{
-    text-align:center;
-    color: var(--text-dim);
-    font-size: 12px;
-    padding: 20px;
+    text-align:center; color: var(--text-dim);
+    font-size: 12px; padding: 34px 20px 24px;
     font-family:'JetBrains Mono', monospace;
   }
 </style>
@@ -168,24 +245,45 @@
 <body>
 
 <header class="hero">
-  <p class="eyebrow">// tap the field below</p>
+  <p class="eyebrow"><span id="typed"></span><span class="cursor"></span></p>
   <h1>Rishiraj Singh Gaur</h1>
   <p class="role">Research Scholar, Manipal University Jaipur — IIoT · Blockchain · Federated Learning</p>
 </header>
 
-<div id="stage">
-  <div id="hint">click / tap anywhere to drop the packets</div>
-  <div id="jarLabel">ABOUT ME</div>
-  <div id="jar"></div>
+<div id="stageWrap">
+  <div id="stage">
+    <div id="hint">click anywhere to stream the packets · then click a packet to inspect it<br>drag two identical packets together to deduplicate them</div>
+    <div id="hud">
+      chunks in jar: <b id="hudChunks">0</b><br>
+      deduplicated: <b id="hudDeduped">0</b><br>
+      <span class="saved">storage saved: <span id="hudSaved">0%</span></span>
+    </div>
+    <div id="jarLabel">STORAGE</div>
+    <div id="jar"></div>
+  </div>
+  <div id="controls">
+    <button class="primary" id="btnDrop">▶ stream packets</button>
+    <button id="btnShake">⇅ shake</button>
+    <button id="btnGravity">☾ flip gravity</button>
+    <button id="btnReset">⟲ reset</button>
+  </div>
 </div>
 
-<div id="about">
+<div id="inspector">
+  <div id="inspectorCard">
+    <p class="ptitle">packet inspector</p>
+    <p class="dim" id="inspectorBody">Nothing selected yet. Stream the packets, then click one — each packet is a piece of my research world. Duplicates exist on purpose: drag one onto its twin and the system deduplicates it, exactly like my thesis does with IIoT telemetry.</p>
+  </div>
+</div>
+
+<section class="reveal">
+  <h2>who i am</h2>
   <div class="card">
-    <h2>who i am</h2>
-    <p>PhD scholar at Manipal University Jaipur, working on data deduplication for Industrial IoT — where machine learning, blockchain audit trails, and federated learning meet.</p>
-    <p>Also a trainer at MUJ TEC, building digital-skills programmes for staff, and a builder who'd rather automate a workflow than repeat it.</p>
+    <p>PhD scholar at Manipal University Jaipur, working on data deduplication for Industrial IoT — where machine learning, blockchain audit trails, and federated learning meet. My frameworks are evaluated on the TEP, SKAB, and SWaT benchmarks, with a focus on deduplication that never destroys the rare anomaly signatures that matter most.</p>
+    <p>Alongside research, I work as a Senior Process Associate in the Office of the Controller of Examinations at MUJ, automating academic processes and large-scale data workflows, and I train staff in digital skills at MUJ TEC. PhD supervised by Dr. Linesh Raja.</p>
     <div class="tags">
       <span class="tag">IIoT dedup</span>
+      <span class="tag">Anomaly-preserving</span>
       <span class="tag">Federated learning</span>
       <span class="tag">Blockchain audit</span>
       <span class="tag">Python</span>
@@ -193,36 +291,127 @@
       <span class="tag">TEP / SKAB / SWaT</span>
     </div>
   </div>
-  <div class="links">
-    <a href="https://github.com/rishirajsinghgaur/" target="_blank">github.com/rishirajsinghgaur</a>
-    <a class="secondary" href="https://www.linkedin.com/in/rishirajsinghgaur/" target="_blank">linkedin</a>
-  </div>
-</div>
+</section>
 
-<footer>rebuilt every visit — click the field again to redrop</footer>
+<section class="reveal">
+  <h2>how the research pipeline works</h2>
+  <div id="pipeline" role="tablist" aria-label="Research pipeline stages">
+    <button class="stagebtn active" data-stage="0">ingest</button>
+    <button class="stagebtn" data-stage="1">fingerprint</button>
+    <button class="stagebtn" data-stage="2">deduplicate</button>
+    <button class="stagebtn" data-stage="3">anomaly check</button>
+    <button class="stagebtn" data-stage="4">ledger</button>
+  </div>
+  <div id="stageDesc">
+    <p class="sd-label" id="sdLabel">stage 1 · ingest</p>
+    <p id="sdBody">Streams of sensor telemetry arrive from industrial processes — pressure, temperature, flow, vibration. Benchmarks like TEP, SKAB, and SWaT stand in for real plants, generating the high-redundancy data flood that motivates the whole problem.</p>
+  </div>
+</section>
+
+<section class="reveal">
+  <h2>links</h2>
+  <div class="links">
+    <a href="https://github.com/rishirajsinghgaur/" target="_blank" rel="noopener">github.com/rishirajsinghgaur</a>
+    <a class="secondary" href="https://www.linkedin.com/in/rishirajsinghgaur/" target="_blank" rel="noopener">linkedin</a>
+  </div>
+</section>
+
+<footer>rebuilt every visit — packets, physics and all · rishiraj singh gaur</footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
 <script>
-  const { Engine, Render, Runner, World, Bodies, Body, Events, Mouse, MouseConstraint } = Matter;
+  const { Engine, Render, Runner, World, Bodies, Body, Events, Mouse, MouseConstraint, Query } = Matter;
 
   const stage = document.getElementById('stage');
-  const jar = document.getElementById('jar');
   const hint = document.getElementById('hint');
-  const about = document.getElementById('about');
+  const hudChunks = document.getElementById('hudChunks');
+  const hudDeduped = document.getElementById('hudDeduped');
+  const hudSaved = document.getElementById('hudSaved');
+  const inspectorCard = document.getElementById('inspectorCard');
+  const inspectorBody = document.getElementById('inspectorBody');
 
-  const packets = [
-    { label: 'py', color: '#2FD9A8' },
-    { label: 'php', color: '#7C7FE0' },
-    { label: 'phd', color: '#F0B429' },
-    { label: 'ml', color: '#E0637C' },
-    { label: 'iiot', color: '#4FB6E8' },
-    { label: 'fl', color: '#2FD9A8' },
-    { label: 'chain', color: '#F0B429' },
-    { label: 'data', color: '#7C7FE0' },
+  /* ---------- packet catalogue (duplicates are intentional!) ---------- */
+  const catalogue = {
+    py:    { color:'#2FD9A8', title:'py · python', body:'My primary research language. The dedup frameworks, benchmark runs on TEP / SKAB / SWaT, and all the analysis notebooks are built in Python — scikit-learn, pandas, and friends.' },
+    php:   { color:'#7C7FE0', title:'php · production automation', body:'The workhorse of my day job in the Office of the Controller of Examinations at MUJ — automating academic processes and large-scale data workflows that thousands of students depend on.' },
+    phd:   { color:'#F0B429', title:'phd · manipal university jaipur', body:'Doctoral research on data deduplication for Industrial IoT, supervised by Dr. Linesh Raja. The core question: how do you shrink redundant telemetry without ever losing a fault signature?' },
+    ml:    { color:'#E0637C', title:'ml · anomaly-preserving dedup', body:'Machine learning models decide which chunks are safe to drop. The hard constraint: rare anomalies must survive deduplication, because in an industrial plant the rare event is the whole point.' },
+    iiot:  { color:'#4FB6E8', title:'iiot · industrial telemetry', body:'Industrial IoT sensors produce enormously redundant streams. My frameworks are evaluated on the Tennessee Eastman Process, SKAB, and SWaT — standard testbeds for industrial anomaly research.' },
+    fl:    { color:'#2FD9A8', title:'fl · federated learning', body:'Plants can\u2019t always share raw data. Federated learning lets sites train dedup and anomaly models collaboratively while the sensitive telemetry never leaves the premises.' },
+    chain: { color:'#F0B429', title:'chain · blockchain audit trails', body:'Every dedup decision leaves a verifiable trace. A blockchain-backed ledger makes the pipeline auditable — you can prove which chunks were removed, when, and why.' },
+    data:  { color:'#7C7FE0', title:'data · pipelines & tooling', body:'Beyond the thesis: research automation tooling, Streamlit dashboards, LaTeX pipelines, and a general refusal to do anything by hand twice.' },
+  };
+
+  /* duplicates included on purpose — the dedup mini-game */
+  const packets = ['py','php','phd','ml','iiot','fl','chain','data','py','iiot','data'];
+
+  /* ---------- pipeline section ---------- */
+  const stages = [
+    { label:'stage 1 · ingest', body:'Streams of sensor telemetry arrive from industrial processes — pressure, temperature, flow, vibration. Benchmarks like TEP, SKAB, and SWaT stand in for real plants, generating the high-redundancy data flood that motivates the whole problem.' },
+    { label:'stage 2 · fingerprint', body:'Each incoming chunk of telemetry is hashed and characterised. Similar windows of sensor data produce similar fingerprints, which is what makes redundancy detectable at scale.' },
+    { label:'stage 3 · deduplicate', body:'Chunks whose fingerprints match existing storage are dropped and replaced with references. This is where the storage savings come from — often the vast majority of raw IIoT data is near-duplicate.' },
+    { label:'stage 4 · anomaly check', body:'Before anything is discarded, an ML gate asks: could this chunk carry a fault signature? Anomaly-preserving deduplication guarantees that rare events survive, because a deleted anomaly is an invisible failure.' },
+    { label:'stage 5 · ledger', body:'Every keep/drop decision is committed to a blockchain-backed audit trail. Combined with federated training across sites, the pipeline stays both private and provable.' },
   ];
+  const sdLabel = document.getElementById('sdLabel');
+  const sdBody = document.getElementById('sdBody');
+  document.querySelectorAll('.stagebtn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.stagebtn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const s = stages[+btn.dataset.stage];
+      sdLabel.textContent = s.label;
+      sdBody.textContent = s.body;
+    });
+  });
 
+  /* ---------- typed eyebrow ---------- */
+  const typedEl = document.getElementById('typed');
+  const phrases = [
+    '$ whoami — research scholar',
+    '$ focus — iiot data deduplication',
+    '$ stack — python · php · scikit-learn',
+    '$ benchmarks — tep · skab · swat',
+  ];
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion) {
+    typedEl.textContent = phrases[0];
+  } else {
+    let pi = 0, ci = 0, deleting = false;
+    (function type(){
+      const p = phrases[pi];
+      typedEl.textContent = p.slice(0, ci);
+      if (!deleting) {
+        if (ci < p.length) { ci++; setTimeout(type, 42); }
+        else { deleting = true; setTimeout(type, 2100); }
+      } else {
+        if (ci > 0) { ci--; setTimeout(type, 18); }
+        else { deleting = false; pi = (pi+1) % phrases.length; setTimeout(type, 300); }
+      }
+    })();
+  }
+
+  /* ---------- scroll reveal ---------- */
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  /* ---------- physics ---------- */
   let engine, render, runner, mouseConstraint;
   let dropped = false;
+  let dedupedCount = 0;
+  let gravityFlipped = false;
+  let downPos = null, downTime = 0;
+
+  function liveBalls(){ return engine.world.bodies.filter(b => b.packetKey); }
+
+  function updateHud(){
+    hudChunks.textContent = liveBalls().length;
+    hudDeduped.textContent = dedupedCount;
+    const pct = packets.length ? Math.round(100 * dedupedCount / packets.length) : 0;
+    hudSaved.textContent = pct + '%';
+  }
 
   function buildWorld() {
     const w = stage.clientWidth;
@@ -230,13 +419,13 @@
 
     engine = Engine.create();
     engine.gravity.y = 0.9;
+    gravityFlipped = false;
 
     render = Render.create({
       element: stage,
       engine: engine,
       options: {
-        width: w,
-        height: h,
+        width: w, height: h,
         background: 'transparent',
         wireframes: false,
         pixelRatio: window.devicePixelRatio || 1
@@ -247,15 +436,15 @@
     render.canvas.style.left = '0';
     render.canvas.style.zIndex = '1';
 
-    const jarLeft = w / 2 - 140;
-    const jarRight = w / 2 + 140;
-    const floorY = h - 4;
+    const jarHalf = 140;
+    const floor = Bodies.rectangle(w/2, h + 6, jarHalf*2 + 20, 20, { isStatic: true, render: { visible: false } });
+    const leftWall = Bodies.rectangle(w/2 - jarHalf, h - 105, 6, 210, { isStatic: true, render: { visible: false } });
+    const rightWall = Bodies.rectangle(w/2 + jarHalf, h - 105, 6, 210, { isStatic: true, render: { visible: false } });
+    const ceiling = Bodies.rectangle(w/2, -220, w*2, 20, { isStatic: true, render: { visible: false } });
+    const outerLeft = Bodies.rectangle(-10, h/2, 20, h*3, { isStatic: true, render: { visible: false } });
+    const outerRight = Bodies.rectangle(w+10, h/2, 20, h*3, { isStatic: true, render: { visible: false } });
 
-    const floor = Bodies.rectangle(w/2, floorY + 10, 300, 20, { isStatic: true, render: { visible: false } });
-    const leftWall = Bodies.rectangle(jarLeft, h - 105, 6, 210, { isStatic: true, render: { visible: false } });
-    const rightWall = Bodies.rectangle(jarRight, h - 105, 6, 210, { isStatic: true, render: { visible: false } });
-
-    World.add(engine.world, [floor, leftWall, rightWall]);
+    World.add(engine.world, [floor, leftWall, rightWall, ceiling, outerLeft, outerRight]);
     Render.run(render);
     runner = Runner.create();
     Runner.run(runner, engine);
@@ -267,73 +456,149 @@
     });
     World.add(engine.world, mouseConstraint);
     render.mouse = mouse;
+
+    /* labels on balls */
+    Events.on(render, 'afterRender', function() {
+      const ctx = render.context;
+      liveBalls().forEach(b => {
+        ctx.save();
+        ctx.translate(b.position.x, b.position.y);
+        ctx.fillStyle = '#0B0F14';
+        ctx.font = '500 ' + Math.max(10, Math.round(b.circleRadius * 0.48)) + 'px JetBrains Mono, monospace';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(b.packetKey, 0, 0);
+        if (b.isDupe) {
+          ctx.font = '400 8px JetBrains Mono, monospace';
+          ctx.fillText('copy', 0, 11);
+        }
+        ctx.restore();
+      });
+    });
+
+    /* dedup: same-label balls merge when one is being dragged into the other */
+    Events.on(engine, 'collisionStart', (ev) => {
+      const dragged = mouseConstraint.body;
+      if (!dragged || !dragged.packetKey) return;
+      ev.pairs.forEach(pair => {
+        const { bodyA, bodyB } = pair;
+        if (!bodyA.packetKey || !bodyB.packetKey) return;
+        if (bodyA !== dragged && bodyB !== dragged) return;
+        if (bodyA.packetKey !== bodyB.packetKey) return;
+        const survivor = bodyA === dragged ? bodyB : bodyA;
+        const removed = bodyA === dragged ? bodyA : bodyB;
+        World.remove(engine.world, removed);
+        Body.scale(survivor, 1.18, 1.18);
+        survivor.isDupe = false;
+        dedupedCount++;
+        updateHud();
+        flashInspector(
+          'deduplicated ✓',
+          'Two identical "' + survivor.packetKey + '" chunks merged into one reference — ' +
+          'exactly what my frameworks do to redundant IIoT telemetry, while a blockchain ledger records the decision.',
+          '#F0B429'
+        );
+      });
+    });
   }
 
-  function dropPacket(i) {
+  function flashInspector(title, body, accent){
+    inspectorCard.style.borderLeftColor = accent || 'var(--teal)';
+    inspectorCard.querySelector('.ptitle').textContent = title;
+    inspectorBody.classList.remove('dim');
+    inspectorBody.textContent = body;
+  }
+
+  function dropPacket(key, i) {
     const w = stage.clientWidth;
-    const p = packets[i % packets.length];
+    const info = catalogue[key];
     const x = w/2 + (Math.random() - 0.5) * 220;
-    const r = 22;
-    const ball = Bodies.circle(x, -40 - i * 40, r, {
+    const ball = Bodies.circle(x, -40 - i * 42, 22, {
       restitution: 0.35,
       friction: 0.15,
-      render: { fillStyle: p.color }
+      render: { fillStyle: info.color }
     });
-    ball.customLabel = p.label;
+    ball.packetKey = key;
+    /* mark later occurrences as visible duplicates */
+    ball.isDupe = packets.indexOf(key) !== i;
     World.add(engine.world, ball);
+    updateHud();
   }
 
   function dropAll() {
     if (dropped) return;
     dropped = true;
     hint.style.opacity = '0';
-    packets.forEach((p, i) => {
-      setTimeout(() => dropPacket(i), i * 160);
+    packets.forEach((key, i) => setTimeout(() => dropPacket(key, i), i * 150));
+  }
+
+  function shake(){
+    liveBalls().forEach(b => {
+      Body.applyForce(b, b.position, {
+        x: (Math.random() - 0.5) * 0.06,
+        y: -Math.random() * 0.08
+      });
     });
-    setTimeout(() => {
-      about.classList.add('show');
-    }, packets.length * 160 + 1200);
+  }
+
+  function flipGravity(){
+    gravityFlipped = !gravityFlipped;
+    engine.gravity.y = gravityFlipped ? -0.5 : 0.9;
+    document.getElementById('btnGravity').textContent = gravityFlipped ? '☀ restore gravity' : '☾ flip gravity';
   }
 
   function resetStage() {
     if (render) { Render.stop(render); render.canvas.remove(); }
     if (runner) Runner.stop(runner);
-    if (engine) World.clear(engine.world);
+    if (engine) { World.clear(engine.world); Engine.clear(engine); }
     stage.querySelectorAll('canvas').forEach(c => c.remove());
     dropped = false;
+    dedupedCount = 0;
     hint.style.opacity = '1';
-    about.classList.remove('show');
+    document.getElementById('btnGravity').textContent = '☾ flip gravity';
+    inspectorCard.style.borderLeftColor = 'var(--teal)';
+    inspectorCard.querySelector('.ptitle').textContent = 'packet inspector';
+    inspectorBody.classList.add('dim');
+    inspectorBody.textContent = 'Nothing selected yet. Stream the packets, then click one — each packet is a piece of my research world. Duplicates exist on purpose: drag one onto its twin and the system deduplicates it, exactly like my thesis does with IIoT telemetry.';
     buildWorld();
+    updateHud();
   }
 
-  buildWorld();
+  /* click vs drag detection + packet inspection */
+  stage.addEventListener('pointerdown', (e) => {
+    downPos = { x: e.clientX, y: e.clientY };
+    downTime = Date.now();
+  });
+  stage.addEventListener('pointerup', (e) => {
+    if (!downPos) return;
+    const moved = Math.hypot(e.clientX - downPos.x, e.clientY - downPos.y);
+    const quick = Date.now() - downTime < 350;
+    downPos = null;
+    if (!(moved < 8 && quick)) return; /* it was a drag */
 
-  stage.addEventListener('click', (e) => {
-    if (!dropped) {
-      dropAll();
-    } else {
-      resetStage();
+    if (!dropped) { dropAll(); return; }
+
+    const rect = render.canvas.getBoundingClientRect();
+    const point = { x: e.clientX - rect.left, y: e.clientY - rect.top };
+    const found = Query.point(liveBalls(), point);
+    if (found.length) {
+      const info = catalogue[found[0].packetKey];
+      flashInspector(info.title, info.body, info.color);
     }
   });
 
-  // draw labels on top of each ball after matter renders
-  Events.on(render, 'afterRender', function() {
-    const ctx = render.context;
-    engine.world.bodies.forEach(b => {
-      if (b.customLabel) {
-        ctx.save();
-        ctx.fillStyle = '#0B0F14';
-        ctx.font = '500 11px JetBrains Mono, monospace';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillText(b.customLabel, b.position.x, b.position.y);
-        ctx.restore();
-      }
-    });
-  });
+  document.getElementById('btnDrop').addEventListener('click', dropAll);
+  document.getElementById('btnShake').addEventListener('click', shake);
+  document.getElementById('btnGravity').addEventListener('click', flipGravity);
+  document.getElementById('btnReset').addEventListener('click', resetStage);
 
+  buildWorld();
+  updateHud();
+
+  let resizeTimer;
   window.addEventListener('resize', () => {
-    resetStage();
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(resetStage, 250);
   });
 </script>
 

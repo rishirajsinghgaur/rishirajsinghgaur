@@ -32,7 +32,12 @@ I am currently pursuing my Ph.D. at Manipal University Jaipur while working as a
 
 ## interactive corner
 
-I built a small physics playground where research "packets" (`py`, `php`, `phd`, `ml`, `iiot`, `fl`, `chain`, `data`) drop into a jar and reveal an about-me card on landing.
+I built a small physics playground that doubles as a demo of my thesis:
+
+- 🫙 **Stream packets** — research "packets" (`py`, `php`, `phd`, `ml`, `iiot`, `fl`, `chain`, `data`) drop into a storage jar
+- 🔍 **Click any packet** to inspect it — each one opens a card about that part of my work
+- ♻️ **Deduplicate!** Duplicate packets exist on purpose — drag a copy onto its twin and they merge, with a live "storage saved" counter (yes, my PhD as a mini-game)
+- ⇅ shake, ☾ flip gravity, ⟲ reset — because physics
 
 GitHub strips `<script>` tags from profile READMEs, so it can't run inline here — but it's live on GitHub Pages:
 
