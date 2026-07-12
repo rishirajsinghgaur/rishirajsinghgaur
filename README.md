@@ -16,7 +16,7 @@ I'm a PhD scholar at **Manipal University Jaipur**, researching data deduplicati
 - 🔭 Currently working on IIoT deduplication frameworks evaluated on TEP, SKAB, and SWaT benchmarks
 - 🧠 Interests: anomaly-preserving deduplication, privacy-preserving federated learning, blockchain-based audit trails
 - 🐍 Love working in **Python** and **PHP**
-- 🎓 PhD supervised by Dr. Linesh Raja and Dr. Pramod Singh Rathore
+- 🎓 PhD supervised by Dr. Linesh Raja 
 - 💬 Ask me about IIoT, data pipelines, or research automation tooling
 
 ## tech stack
